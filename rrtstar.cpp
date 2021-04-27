@@ -6,6 +6,7 @@
 #include "rrtstar.h"
 #include "utils.h"
 using namespace std;
+
 bool Node::operator==(Node n)
 {
   std::vector<float> temp=n.gridPoint;
@@ -23,70 +24,65 @@ void Node::display()
 }
    
 void nodeTree::addNode(Node* n)
-    {
-      list.push_back(n);
-    }
+{
+  list.push_back(n);
+}
     
-    // nearest neighbor function
-    Node* nodeTree::nearestNeighbour(std::vector<float> qrand)
+Node* nodeTree::nearestNeighbour(std::vector<float> qrand)
+{
+  Node *a;
+  float distance;
+  //maximum distance defined as distance from start point
+  float min=euclideanDistance(list[0]->gridPoint,qrand);
+  a=list[0];
+  for (int i=1;i<list.size();i++)
+  {
+    distance=euclideanDistance(list[i]->gridPoint,qrand);
+    if(distance<min)
     {
-      Node *a;
-      float distance;
-      //maximum distance defined as distance from start point
-      float min=euclideanDistance(list[0]->gridPoint,qrand);
-      a=list[0];
-      for (int i=1;i<list.size();i++)
-      {
-        distance=euclideanDistance(list[i]->gridPoint,qrand);
-        if(distance<min)
-        {
-        
-         min=distance;
-         a=list[i];
-        }
-      }
-      return a;
+      min=distance;
+      a=list[i];
     }
+  }
+  return a;
+}
 
-    // displaying list from goal to start
-    std::vector<std::vector<float> > nodeTree::getPath()
-    {
-      Node* a;
-      std::vector<std::vector<float> > path;
+std::vector<std::vector<float> > nodeTree::getPath()
+{
+  Node* a;
+  std::vector<std::vector<float> > path;
       
-      a=list[list.size()-1];
-      while(a->parent!=NULL)
-      {
-        path.push_back(a->gridPoint);
-        a=a->parent;
-      }
-      path.push_back(a->gridPoint);
-      return path;
-    }
+  a=list[list.size()-1];
+  while(a->parent!=NULL)
+  {
+    path.push_back(a->gridPoint);
+    a=a->parent;
+  }
+  path.push_back(a->gridPoint);
+  return path;
+}
 
-    Node* nodeTree::improveParent(std::vector<float> point,float neighbourhoodRadius)
+Node* nodeTree::improveParent(std::vector<float> point,float neighbourhoodRadius)
+{
+  std::vector<Node*> neighbourhood;
+  float leastCost;
+  int i,index;
+  for (i=0;i<list.size();i++)
+    if (euclideanDistance(point,list[i]->gridPoint)<=neighbourhoodRadius)
+      neighbourhood.push_back(list[i]);
+
+  leastCost=neighbourhood[0]->cost;
+  index=0;
+  for(i=1;i<neighbourhood.size();i++)
+  {
+    if(neighbourhood[i]->cost<leastCost)
     {
-      std::vector<Node*> neighbourhood;
-      float leastCost;
-      int i,index;
-      for (i=0;i<list.size();i++)
-        if (euclideanDistance(point,list[i]->gridPoint)<=neighbourhoodRadius)
-          neighbourhood.push_back(list[i]);
-
-      leastCost=neighbourhood[0]->cost;
-      index=0;
-      for(i=1;i<neighbourhood.size();i++)
-      {
-        if(neighbourhood[i]->cost<leastCost)
-        {
-          leastCost=neighbourhood[i]->cost;
-          index=i;
-        }
-      }
-      return neighbourhood[index];
+      leastCost=neighbourhood[i]->cost;
+      index=i;
     }
-
-
+  }
+  return neighbourhood[index];
+}
 
 // RRT star algorithm
 std::vector<std::vector<float> > RRTstar(std::vector<float> start,std::vector<float>goal,std::vector<float>obstacles,float goalBias,float step,float stepCost)
