@@ -3,7 +3,7 @@
 #include <fstream>
 #include "utils.h"
 using namespace std;
-//Euclidean distance([x1,y1],[x2,y2]) = sqrt((x1-x2)^2+(y1-y2)^2)
+
 float euclideanDistance(std::vector<float> v1,std::vector<float> v2)
 {
   float distance=0;
@@ -12,7 +12,6 @@ float euclideanDistance(std::vector<float> v1,std::vector<float> v2)
   return sqrt(distance);
 }
 
-//Check if a point is inside an obstacle. Return true if inside obstacle else return false
 bool checkObstacle(std::vector<float> spot,std::vector<float> box)
 {
   for(int i=0;i<box.size()/4;i++){
@@ -23,7 +22,6 @@ bool checkObstacle(std::vector<float> spot,std::vector<float> box)
   return false;
 }
 
-//Saves obstacles.dat values into a  vector
 std::vector<float> readObstacleData(int size){
 	size=2*size;
 	ifstream inputFile;
@@ -41,7 +39,6 @@ std::vector<float> readObstacleData(int size){
 	return(obstacles);
 }
 
-//To get a closer point from a random point 
 std::vector<float> getCloserPoint(std::vector<float> node, std::vector<float> qrand,float step)
 {
   std::vector<float> v;
@@ -52,7 +49,6 @@ std::vector<float> getCloserPoint(std::vector<float> node, std::vector<float> qr
   return v;
 }
 
-// random point generation
 std::vector<float> getRandomPoint(std::vector<float> low,std::vector<float> high)
 {
 
