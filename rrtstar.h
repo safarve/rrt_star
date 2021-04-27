@@ -40,6 +40,7 @@ class nodeTree
     Node* improveParent(std::vector<float> point,float neighbourhoodRadius=0.15);
 
 };
+//RRT* algorithm
 std::vector<std::vector<float> > RRTstar(std::vector<float> start,std::vector<float>goal,std::vector<float>obstacles,float goalBias=0.3,float step=0.1,float stepCost=0.1);
 
 
