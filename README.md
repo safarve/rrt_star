@@ -5,7 +5,7 @@ Implementation of RRT* algorithm on a 2-D space with a domain of [0,10] X [0,10]
 * main.cpp -> contains variables that store start,goal and obstacle number.
 * obstacles.dat -> Input data for obstacles, which are modelled as rectangles. Each obstacle requires 2 corner points in the order <br />{x1 y1}\n{x2 y2}.
 * results.dat->Contains the path from start to goal in the format: <br />{x1 y1}\n{x2 y2}\n{x2 y2}....{xn yn}
-* 
+
 #### How to run ####
 * The makefile contains necessary commands to compile and clean
 ```
