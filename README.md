@@ -9,8 +9,9 @@ Implementation of RRT* algorithm on a 2-D space with a domain of [0,10] X [0,10]
 
 #### Plotting ####
 * [gnuplot](http://www.gnuplot.info/) is used to plot the resulting path and obstacles
+![picture alt](https://github.com/safarve/rrt_star/blob/main/plot1.png "A demo plot")
 
-#### how to run ####
+#### How to run ####
 * The makefile contains necessary commands to compile and clean
 ```
 make
